@@ -382,7 +382,7 @@ android {
 
     create("bkmChis") {
       dimension = "apps"
-      applicationIdSuffix = ".bkmchis"
+      applicationIdSuffix = ".bkmChis"
       versionNameSuffix = "-bkmChis"
       manifestPlaceholders["appLabel"] = "BKM CHIS"
     }
