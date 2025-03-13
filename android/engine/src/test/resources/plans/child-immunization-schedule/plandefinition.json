@@ -114,24 +114,24 @@
       "resourceType": "ActivityDefinition",
       "id": "careplan-bcg-task-activity",
       "title": "Child BCG Immunization",
-      "description": "This is the BCG scheduled immunization.",
       "status": "active",
+      "description": "This is the BCG scheduled immunization.",
       "kind": "Task",
       "code": {
         "coding": [
           {
+            "system": "http://snomed.info/sct",
             "code": "33879002",
-            "display": "Administration of vaccine to produce active immunity (procedure)",
-            "system": "http://snomed.info/sct"
+            "display": "Administration of vaccine to produce active immunity (procedure)"
           }
         ]
       },
       "productCodeableConcept": {
         "coding": [
           {
+            "system": "http://snomed.info/sct",
             "code": "42284007",
-            "display": "BCG vaccination",
-            "system": "http://snomed.info/sct"
+            "display": "BCG vaccination"
           }
         ],
         "text": "BCG"
@@ -141,7 +141,47 @@
           "timing": {
             "repeat": {
               "count": 1,
-              "duration": 1825,
+              "duration": 335,
+              "durationUnit": "d",
+              "period": 0,
+              "periodUnit": "d"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "resourceType": "ActivityDefinition",
+      "id": "careplan-hepb-task-activity",
+      "title": "Child HepB Immunization",
+      "status": "active",
+      "description": "This is the BCG scheduled immunization.",
+      "kind": "Task",
+      "code": {
+        "coding": [
+          {
+            "system": "http://snomed.info/sct",
+            "code": "33879002",
+            "display": "Administration of vaccine to produce active immunity (procedure)"
+          }
+        ]
+      },
+      "productCodeableConcept": {
+        "coding": [
+          {
+            "system": "http://snomed.info/sct",
+            "code": "66071002",
+            "display": "Viral hepatitis type B (disorder)"
+          }
+        ],
+        "text": "Hepatitis B (HepB)"
+      },
+      "dosage": [
+        {
+          "timing": {
+            "repeat": {
+              "count": 1,
+              "duration": 1,
               "durationUnit": "d",
               "period": 0,
               "periodUnit": "d"
@@ -154,24 +194,24 @@
       "resourceType": "ActivityDefinition",
       "id": "careplan-opv-task-activity",
       "title": "Child OPV Immunization",
-      "description": "This is the OPV scheduled immunization.",
       "status": "active",
+      "description": "This is the OPV scheduled immunization.",
       "kind": "Task",
       "code": {
         "coding": [
           {
+            "system": "http://snomed.info/sct",
             "code": "33879002",
-            "display": "Administration of vaccine to produce active immunity (procedure)",
-            "system": "http://snomed.info/sct"
+            "display": "Administration of vaccine to produce active immunity (procedure)"
           }
         ]
       },
       "productCodeableConcept": {
         "coding": [
           {
+            "system": "http://snomed.info/sct",
             "code": "111164008",
-            "display": "Poliovirus vaccine",
-            "system": "http://snomed.info/sct"
+            "display": "Poliovirus vaccine"
           }
         ],
         "text": "OPV"
@@ -194,7 +234,7 @@
           "timing": {
             "repeat": {
               "count": 1,
-              "duration": 1825,
+              "duration": 28,
               "durationUnit": "d",
               "period": 6,
               "periodUnit": "wk"
@@ -206,7 +246,7 @@
           "timing": {
             "repeat": {
               "count": 1,
-              "duration": 1825,
+              "duration": 28,
               "durationUnit": "d",
               "period": 10,
               "periodUnit": "wk"
@@ -218,7 +258,7 @@
           "timing": {
             "repeat": {
               "count": 1,
-              "duration": 1825,
+              "duration": 28,
               "durationUnit": "d",
               "period": 14,
               "periodUnit": "wk"
@@ -231,27 +271,27 @@
       "resourceType": "ActivityDefinition",
       "id": "careplan-penta-task-activity",
       "title": "Child PENTA Immunization",
-      "description": "This is the PENTA scheduled immunization.",
       "status": "active",
+      "description": "This is the PENTA scheduled immunization.",
       "kind": "Task",
       "code": {
         "coding": [
           {
+            "system": "http://snomed.info/sct",
             "code": "33879002",
-            "display": "Administration of vaccine to produce active immunity (procedure)",
-            "system": "http://snomed.info/sct"
+            "display": "Administration of vaccine to produce active immunity (procedure)"
           }
         ]
       },
       "productCodeableConcept": {
         "coding": [
           {
+            "system": "http://snomed.info/sct",
             "code": "429511000124109",
-            "display": "Tetanus + diphtheria + acellular pertussis vaccine",
-            "system": "http://snomed.info/sct"
+            "display": "Tetanus + diphtheria + acellular pertussis vaccine"
           }
         ],
-        "text": "PENTA"
+        "text": "Penta"
       },
       "dosage": [
         {
@@ -259,7 +299,7 @@
           "timing": {
             "repeat": {
               "count": 1,
-              "duration": 1460,
+              "duration": 28,
               "durationUnit": "d",
               "period": 6,
               "periodUnit": "wk"
@@ -271,7 +311,7 @@
           "timing": {
             "repeat": {
               "count": 1,
-              "duration": 1460,
+              "duration": 28,
               "durationUnit": "d",
               "period": 10,
               "periodUnit": "wk"
@@ -283,7 +323,7 @@
           "timing": {
             "repeat": {
               "count": 1,
-              "duration": 1460,
+              "duration": 28,
               "durationUnit": "d",
               "period": 14,
               "periodUnit": "wk"
@@ -296,27 +336,27 @@
       "resourceType": "ActivityDefinition",
       "id": "careplan-rota-task-activity",
       "title": "Child ROTA Immunization",
-      "description": "This is the ROTA scheduled immunization.",
       "status": "active",
+      "description": "This is the ROTA scheduled immunization.",
       "kind": "Task",
       "code": {
         "coding": [
           {
+            "system": "http://snomed.info/sct",
             "code": "33879002",
-            "display": "Administration of vaccine to produce active immunity (procedure)",
-            "system": "http://snomed.info/sct"
+            "display": "Administration of vaccine to produce active immunity (procedure)"
           }
         ]
       },
       "productCodeableConcept": {
         "coding": [
           {
+            "system": "http://snomed.info/sct",
             "code": "415354003",
-            "display": "Rotavirus vaccination",
-            "system": "http://snomed.info/sct"
+            "display": "Rotavirus vaccination"
           }
         ],
-        "text": "ROTA"
+        "text": "Rota"
       },
       "dosage": [
         {
@@ -324,7 +364,7 @@
           "timing": {
             "repeat": {
               "count": 1,
-              "duration": 105,
+              "duration": 28,
               "durationUnit": "d",
               "period": 6,
               "periodUnit": "wk"
@@ -336,7 +376,7 @@
           "timing": {
             "repeat": {
               "count": 1,
-              "duration": 105,
+              "duration": 28,
               "durationUnit": "d",
               "period": 10,
               "periodUnit": "wk"
@@ -349,24 +389,24 @@
       "resourceType": "ActivityDefinition",
       "id": "careplan-pcv-task-activity",
       "title": "Child PCV Immunization",
-      "description": "This is the PCV scheduled immunization.",
       "status": "active",
+      "description": "This is the PCV scheduled immunization.",
       "kind": "Task",
       "code": {
         "coding": [
           {
+            "system": "http://snomed.info/sct",
             "code": "33879002",
-            "display": "Administration of vaccine to produce active immunity (procedure)",
-            "system": "http://snomed.info/sct"
+            "display": "Administration of vaccine to produce active immunity (procedure)"
           }
         ]
       },
       "productCodeableConcept": {
         "coding": [
           {
+            "system": "http://snomed.info/sct",
             "code": "12866006",
-            "display": "Pneumococcal vaccination",
-            "system": "http://snomed.info/sct"
+            "display": "Pneumococcal vaccination"
           }
         ],
         "text": "PCV"
@@ -377,7 +417,7 @@
           "timing": {
             "repeat": {
               "count": 1,
-              "duration": 1825,
+              "duration": 28,
               "durationUnit": "d",
               "period": 6,
               "periodUnit": "wk"
@@ -389,7 +429,7 @@
           "timing": {
             "repeat": {
               "count": 1,
-              "duration": 1825,
+              "duration": 28,
               "durationUnit": "d",
               "period": 10,
               "periodUnit": "wk"
@@ -401,7 +441,7 @@
           "timing": {
             "repeat": {
               "count": 1,
-              "duration": 1825,
+              "duration": 28,
               "durationUnit": "d",
               "period": 14,
               "periodUnit": "wk"
@@ -414,37 +454,50 @@
       "resourceType": "ActivityDefinition",
       "id": "careplan-ipv-task-activity",
       "title": "Child IPV Immunization",
-      "description": "This is the PCV scheduled immunization.",
       "status": "active",
+      "description": "This is the PCV scheduled immunization.",
       "kind": "Task",
       "code": {
         "coding": [
           {
+            "system": "http://snomed.info/sct",
             "code": "33879002",
-            "display": "Administration of vaccine to produce active immunity (procedure)",
-            "system": "http://snomed.info/sct"
+            "display": "Administration of vaccine to produce active immunity (procedure)"
           }
         ]
       },
       "productCodeableConcept": {
         "coding": [
           {
+            "system": "http://snomed.info/sct",
             "code": "396435000",
-            "display": "Inactivated Poliovirus vaccine",
-            "system": "http://snomed.info/sct"
+            "display": "Inactivated Poliovirus vaccine"
           }
         ],
         "text": "IPV"
       },
       "dosage": [
         {
+          "sequence": 1,
+          "timing": {
+            "repeat": {
+              "count": 1,
+              "duration": 175,
+              "durationUnit": "d",
+              "period": 14,
+              "periodUnit": "wk"
+            }
+          }
+        },
+        {
+          "sequence": 2,
           "timing": {
             "repeat": {
               "count": 1,
               "duration": 1825,
               "durationUnit": "d",
-              "period": 14,
-              "periodUnit": "wk"
+              "period": 9,
+              "periodUnit": "mo"
             }
           }
         }
@@ -454,27 +507,27 @@
       "resourceType": "ActivityDefinition",
       "id": "careplan-measles-task-activity",
       "title": "Child MEASLES Immunization",
-      "description": "This is the MEASLES scheduled immunization.",
       "status": "active",
+      "description": "This is the MEASLES scheduled immunization.",
       "kind": "Task",
       "code": {
         "coding": [
           {
+            "system": "http://snomed.info/sct",
             "code": "33879002",
-            "display": "Administration of vaccine to produce active immunity (procedure)",
-            "system": "http://snomed.info/sct"
+            "display": "Administration of vaccine to produce active immunity (procedure)"
           }
         ]
       },
       "productCodeableConcept": {
         "coding": [
           {
+            "system": "http://snomed.info/sct",
             "code": "38598009",
-            "display": "Measles-mumps-rubella vaccination",
-            "system": "http://snomed.info/sct"
+            "display": "Measles-mumps-rubella vaccination"
           }
         ],
-        "text": "MEASLES"
+        "text": "MR"
       },
       "dosage": [
         {
@@ -482,7 +535,7 @@
           "timing": {
             "repeat": {
               "count": 1,
-              "duration": 1825,
+              "duration": 274,
               "durationUnit": "d",
               "period": 9,
               "periodUnit": "mo"
@@ -496,7 +549,7 @@
               "count": 1,
               "duration": 1825,
               "durationUnit": "d",
-              "period": 15,
+              "period": 18,
               "periodUnit": "mo"
             }
           }
@@ -505,38 +558,38 @@
     },
     {
       "resourceType": "ActivityDefinition",
-      "id": "careplan-yellowfever-task-activity",
-      "title": "Child YELLOW FEVER Immunization",
-      "description": "This is the YELLOW FEVER scheduled immunization.",
+      "id": "careplan-vitamin-a-100000-task-activity",
+      "title": "Child Vitamin A 100000 Immunization",
       "status": "active",
+      "description": "This is the Vitamin A scheduled immunization.",
       "kind": "Task",
       "code": {
         "coding": [
           {
+            "system": "http://snomed.info/sct",
             "code": "33879002",
-            "display": "Administration of vaccine to produce active immunity (procedure)",
-            "system": "http://snomed.info/sct"
+            "display": "Administration of vaccine to produce active immunity (procedure)"
           }
         ]
       },
       "productCodeableConcept": {
         "coding": [
           {
-            "code": "67308009",
-            "display": "Yellow fever vaccination",
-            "system": "http://snomed.info/sct"
+            "system": "http://snomed.info/sct",
+            "code": "787948005",
+            "display": "Vitamin A and/or vitamin A derivative (substance)"
           }
         ],
-        "text": "YELLOW FEVER"
+        "text": "Vitamin A (100,000 I.U)"
       },
       "dosage": [
         {
           "timing": {
             "repeat": {
               "count": 1,
-              "duration": 1825,
+              "duration": 152,
               "durationUnit": "d",
-              "period": 9,
+              "period": 6,
               "periodUnit": "mo"
             }
           }
@@ -545,38 +598,91 @@
     },
     {
       "resourceType": "ActivityDefinition",
-      "id": "careplan-typhoid-task-activity",
-      "title": "Child TYPHOID Immunization",
-      "description": "This is the TYPHOID scheduled immunization.",
+      "id": "careplan-vitamin-a-200000-task-activity",
+      "title": "Child Vitamin A 200000 Immunization",
       "status": "active",
+      "description": "This is the Vitamin A scheduled immunization.",
       "kind": "Task",
       "code": {
         "coding": [
           {
+            "system": "http://snomed.info/sct",
             "code": "33879002",
-            "display": "Administration of vaccine to produce active immunity (procedure)",
-            "system": "http://snomed.info/sct"
+            "display": "Administration of vaccine to produce active immunity (procedure)"
           }
         ]
       },
       "productCodeableConcept": {
         "coding": [
           {
-            "code": "15483003",
-            "display": "Typhoid vaccination",
-            "system": "http://snomed.info/sct"
+            "system": "http://snomed.info/sct",
+            "code": "787948005",
+            "display": "Vitamin A and/or vitamin A derivative (substance)"
           }
         ],
-        "text": "TYPHOID"
+        "text": "Vitamin A (200,000 I.U)"
       },
       "dosage": [
         {
           "timing": {
             "repeat": {
               "count": 1,
-              "duration": 730,
+              "duration": 182,
               "durationUnit": "d",
-              "period": 9,
+              "period": 12,
+              "periodUnit": "mo"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "resourceType": "ActivityDefinition",
+      "id": "careplan-tetanus-diphtheriae-task-activity",
+      "title": "Child Tetanus Diphtheriae Immunization",
+      "status": "active",
+      "description": "This is the Tetanus Diphtheriae scheduled immunization.",
+      "kind": "Task",
+      "code": {
+        "coding": [
+          {
+            "system": "http://snomed.info/sct",
+            "code": "33879002",
+            "display": "Administration of vaccine to produce active immunity (procedure)"
+          }
+        ]
+      },
+      "productCodeableConcept": {
+        "coding": [
+          {
+            "system": "http://snomed.info/sct",
+            "code": "871826000",
+            "display": "Vaccine product containing only Clostridium tetani and Corynebacterium diphtheriae antigens (medicinal product)"
+          }
+        ],
+        "text": "TD"
+      },
+      "dosage": [
+        {
+          "sequence": 1,
+          "timing": {
+            "repeat": {
+              "count": 1,
+              "duration": 1096,
+              "durationUnit": "d",
+              "period": 72,
+              "periodUnit": "mo"
+            }
+          }
+        },
+        {
+          "sequence": 2,
+          "timing": {
+            "repeat": {
+              "count": 1,
+              "duration": 1096,
+              "durationUnit": "d",
+              "period": 108,
               "periodUnit": "mo"
             }
           }
@@ -587,24 +693,24 @@
       "resourceType": "ActivityDefinition",
       "id": "careplan-hpv-task-activity",
       "title": "Child HPV Immunization",
-      "description": "This is the HPV scheduled immunization.",
       "status": "active",
+      "description": "This is the HPV scheduled immunization.",
       "kind": "Task",
       "code": {
         "coding": [
           {
+            "system": "http://snomed.info/sct",
             "code": "33879002",
-            "display": "Administration of vaccine to produce active immunity (procedure)",
-            "system": "http://snomed.info/sct"
+            "display": "Administration of vaccine to produce active immunity (procedure)"
           }
         ]
       },
       "productCodeableConcept": {
         "coding": [
           {
+            "system": "http://snomed.info/sct",
             "code": "761841000",
-            "display": "Human papillomavirus vaccination",
-            "system": "http://snomed.info/sct"
+            "display": "Human papillomavirus vaccination"
           }
         ],
         "text": "HPV"
@@ -621,15 +727,44 @@
               "periodUnit": "mo"
             }
           }
-        },
+        }
+      ]
+    },
+    {
+      "resourceType": "ActivityDefinition",
+      "id": "careplan-covid-activity",
+      "title": "Child Covid Immunization",
+      "status": "active",
+      "description": "This is the Covid scheduled immunization.",
+      "kind": "Task",
+      "code": {
+        "coding": [
+          {
+            "system": "http://snomed.info/sct",
+            "code": "33879002",
+            "display": "Administration of vaccine to produce active immunity (procedure)"
+          }
+        ]
+      },
+      "productCodeableConcept": {
+        "coding": [
+          {
+            "system": "http://snomed.info/sct",
+            "code": "840539006",
+            "display": "Disease caused by severe acute respiratory syndrome coronavirus 2 (disorder)"
+          }
+        ],
+        "text": "Covid 19"
+      },
+      "dosage": [
         {
-          "sequence": 2,
+          "sequence": 1,
           "timing": {
             "repeat": {
               "count": 1,
-              "duration": 4017,
+              "duration": 14,
               "durationUnit": "d",
-              "period": 114,
+              "period": 144,
               "periodUnit": "mo"
             }
           }
@@ -650,7 +785,7 @@
           "kind": "applicability",
           "expression": {
             "language": "text/fhirpath",
-            "expression": "$this is Patient and %resource.entry.first().resource is Patient and (today() - 60 'months') <= $this.birthDate"
+            "expression": "$this is Patient and %resource.entry.first().resource is Patient and (today() - 114 'months') <= $this.birthDate"
           }
         }
       ],
@@ -659,14 +794,6 @@
     {
       "prefix": "1",
       "priority": "routine",
-      "type": {
-        "coding": [
-          {
-            "code": "clinical-protocol",
-            "display": "Clinical Protocol"
-          }
-        ]
-      },
       "condition": [
         {
           "kind": "applicability",
@@ -676,20 +803,20 @@
           }
         }
       ],
+      "type": {
+        "coding": [
+          {
+            "code": "clinical-protocol",
+            "display": "Clinical Protocol"
+          }
+        ]
+      },
       "definitionCanonical": "#careplan-bcg-task-activity",
       "transform": "https://fhir.labs.smartregister.org/fhir/StructureMap/97cf9bfb-90be-4661-8810-1c60be88f593"
     },
     {
       "prefix": "1",
       "priority": "routine",
-      "type": {
-        "coding": [
-          {
-            "code": "clinical-protocol",
-            "display": "Clinical Protocol"
-          }
-        ]
-      },
       "condition": [
         {
           "kind": "applicability",
@@ -699,20 +826,43 @@
           }
         }
       ],
+      "type": {
+        "coding": [
+          {
+            "code": "clinical-protocol",
+            "display": "Clinical Protocol"
+          }
+        ]
+      },
+      "definitionCanonical": "#careplan-hepb-task-activity",
+      "transform": "https://fhir.labs.smartregister.org/fhir/StructureMap/97cf9bfb-90be-4661-8810-1c60be88f593"
+    },
+    {
+      "prefix": "1",
+      "priority": "routine",
+      "condition": [
+        {
+          "kind": "applicability",
+          "expression": {
+            "language": "text/fhirpath",
+            "expression": "$this is Patient and %resource.entry.first().resource is Patient and (today() - 60 'months') <= $this.birthDate"
+          }
+        }
+      ],
+      "type": {
+        "coding": [
+          {
+            "code": "clinical-protocol",
+            "display": "Clinical Protocol"
+          }
+        ]
+      },
       "definitionCanonical": "#careplan-opv-task-activity",
       "transform": "https://fhir.labs.smartregister.org/fhir/StructureMap/97cf9bfb-90be-4661-8810-1c60be88f593"
     },
     {
       "prefix": "1",
       "priority": "routine",
-      "type": {
-        "coding": [
-          {
-            "code": "clinical-protocol",
-            "display": "Clinical Protocol"
-          }
-        ]
-      },
       "condition": [
         {
           "kind": "applicability",
@@ -722,20 +872,20 @@
           }
         }
       ],
+      "type": {
+        "coding": [
+          {
+            "code": "clinical-protocol",
+            "display": "Clinical Protocol"
+          }
+        ]
+      },
       "definitionCanonical": "#careplan-penta-task-activity",
       "transform": "https://fhir.labs.smartregister.org/fhir/StructureMap/97cf9bfb-90be-4661-8810-1c60be88f593"
     },
     {
       "prefix": "1",
       "priority": "routine",
-      "type": {
-        "coding": [
-          {
-            "code": "clinical-protocol",
-            "display": "Clinical Protocol"
-          }
-        ]
-      },
       "condition": [
         {
           "kind": "applicability",
@@ -745,20 +895,20 @@
           }
         }
       ],
+      "type": {
+        "coding": [
+          {
+            "code": "clinical-protocol",
+            "display": "Clinical Protocol"
+          }
+        ]
+      },
       "definitionCanonical": "#careplan-rota-task-activity",
       "transform": "https://fhir.labs.smartregister.org/fhir/StructureMap/97cf9bfb-90be-4661-8810-1c60be88f593"
     },
     {
       "prefix": "1",
       "priority": "routine",
-      "type": {
-        "coding": [
-          {
-            "code": "clinical-protocol",
-            "display": "Clinical Protocol"
-          }
-        ]
-      },
       "condition": [
         {
           "kind": "applicability",
@@ -768,20 +918,20 @@
           }
         }
       ],
+      "type": {
+        "coding": [
+          {
+            "code": "clinical-protocol",
+            "display": "Clinical Protocol"
+          }
+        ]
+      },
       "definitionCanonical": "#careplan-pcv-task-activity",
       "transform": "https://fhir.labs.smartregister.org/fhir/StructureMap/97cf9bfb-90be-4661-8810-1c60be88f593"
     },
     {
       "prefix": "1",
       "priority": "routine",
-      "type": {
-        "coding": [
-          {
-            "code": "clinical-protocol",
-            "display": "Clinical Protocol"
-          }
-        ]
-      },
       "condition": [
         {
           "kind": "applicability",
@@ -791,20 +941,20 @@
           }
         }
       ],
+      "type": {
+        "coding": [
+          {
+            "code": "clinical-protocol",
+            "display": "Clinical Protocol"
+          }
+        ]
+      },
       "definitionCanonical": "#careplan-ipv-task-activity",
       "transform": "https://fhir.labs.smartregister.org/fhir/StructureMap/97cf9bfb-90be-4661-8810-1c60be88f593"
     },
     {
       "prefix": "1",
       "priority": "routine",
-      "type": {
-        "coding": [
-          {
-            "code": "clinical-protocol",
-            "display": "Clinical Protocol"
-          }
-        ]
-      },
       "condition": [
         {
           "kind": "applicability",
@@ -814,12 +964,29 @@
           }
         }
       ],
+      "type": {
+        "coding": [
+          {
+            "code": "clinical-protocol",
+            "display": "Clinical Protocol"
+          }
+        ]
+      },
       "definitionCanonical": "#careplan-measles-task-activity",
       "transform": "https://fhir.labs.smartregister.org/fhir/StructureMap/97cf9bfb-90be-4661-8810-1c60be88f593"
     },
     {
       "prefix": "1",
       "priority": "routine",
+      "condition": [
+        {
+          "kind": "applicability",
+          "expression": {
+            "language": "text/fhirpath",
+            "expression": "$this is Patient and %resource.entry.first().resource is Patient and (((today() - 6 'months') <= $this.birthDate) or ((today() - 11 'months') <= $this.birthDate))"
+          }
+        }
+      ],
       "type": {
         "coding": [
           {
@@ -828,21 +995,21 @@
           }
         ]
       },
-      "condition": [
-        {
-          "kind": "applicability",
-          "expression": {
-            "language": "text/fhirpath",
-            "expression": "$this is Patient and %resource.entry.first().resource is Patient and (today() - 60 'months') <= $this.birthDate"
-          }
-        }
-      ],
-      "definitionCanonical": "#careplan-yellowfever-task-activity",
+      "definitionCanonical": "#careplan-vitamin-a-100000-task-activity",
       "transform": "https://fhir.labs.smartregister.org/fhir/StructureMap/97cf9bfb-90be-4661-8810-1c60be88f593"
     },
     {
       "prefix": "1",
       "priority": "routine",
+      "condition": [
+        {
+          "kind": "applicability",
+          "expression": {
+            "language": "text/fhirpath",
+            "expression": "$this is Patient and %resource.entry.first().resource is Patient and (((today() - 12 'months') <= $this.birthDate) or ((today() - 59 'months') <= $this.birthDate))"
+          }
+        }
+      ],
       "type": {
         "coding": [
           {
@@ -851,21 +1018,21 @@
           }
         ]
       },
-      "condition": [
-        {
-          "kind": "applicability",
-          "expression": {
-            "language": "text/fhirpath",
-            "expression": "$this is Patient and %resource.entry.first().resource is Patient and (today() - 60 'months') <= $this.birthDate"
-          }
-        }
-      ],
-      "definitionCanonical": "#careplan-typhoid-task-activity",
+      "definitionCanonical": "#careplan-vitamin-a-200000-task-activity",
       "transform": "https://fhir.labs.smartregister.org/fhir/StructureMap/97cf9bfb-90be-4661-8810-1c60be88f593"
     },
     {
       "prefix": "1",
       "priority": "routine",
+      "condition": [
+        {
+          "kind": "applicability",
+          "expression": {
+            "language": "text/fhirpath",
+            "expression": "(($this is Patient) and %resource.entry.first().resource is Patient and (((today() - 72 'months') <= $this.birthDate) or ((today() - 108 'months') <= $this.birthDate)))"
+          }
+        }
+      ],
       "type": {
         "coding": [
           {
@@ -874,16 +1041,53 @@
           }
         ]
       },
+      "definitionCanonical": "#careplan-tetanus-diphtheriae-task-activity",
+      "transform": "https://fhir.labs.smartregister.org/fhir/StructureMap/97cf9bfb-90be-4661-8810-1c60be88f593"
+    },
+    {
+      "prefix": "1",
+      "priority": "routine",
       "condition": [
         {
           "kind": "applicability",
           "expression": {
             "language": "text/fhirpath",
-            "expression": "(($this is Patient) and (%resource.entry.first().resource is Patient) and ((today() - 60 'months') <= $this.birthDate) and ($this.gender = 'female'))"
+            "expression": "(($this is Patient) and %resource.entry.first().resource is Patient and (((today() - 108 'months') <= $this.birthDate) or ((today() - 114 'months') <= $this.birthDate)) and ($this.gender = 'female'))"
           }
         }
       ],
+      "type": {
+        "coding": [
+          {
+            "code": "clinical-protocol",
+            "display": "Clinical Protocol"
+          }
+        ]
+      },
       "definitionCanonical": "#careplan-hpv-task-activity",
+      "transform": "https://fhir.labs.smartregister.org/fhir/StructureMap/97cf9bfb-90be-4661-8810-1c60be88f593"
+    },
+    {
+      "prefix": "1",
+      "priority": "routine",
+      "condition": [
+        {
+          "kind": "applicability",
+          "expression": {
+            "language": "text/fhirpath",
+            "expression": "(($this is Patient) and %resource.entry.first().resource is Patient and ((today() - 144 'months') <= $this.birthDate))"
+          }
+        }
+      ],
+      "type": {
+        "coding": [
+          {
+            "code": "clinical-protocol",
+            "display": "Clinical Protocol"
+          }
+        ]
+      },
+      "definitionCanonical": "#careplan-covid-activity",
       "transform": "https://fhir.labs.smartregister.org/fhir/StructureMap/97cf9bfb-90be-4661-8810-1c60be88f593"
     }
   ]

@@ -145,4 +145,6 @@
     <string name="questionnaire_submission_confirmation_message">Are you sure you want to submit?</string>
     <string name="questionnaire_submission_confirmation_title">You are about to submit</string>
     <string name="sync_counter"><b>Sync %1$d</b> of <b>%2$d </b></string>
+
+    <string name="set_pin_message">VHW will use this PIN to login</string>
 </resources>
