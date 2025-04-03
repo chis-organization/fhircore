@@ -386,6 +386,13 @@ android {
       versionNameSuffix = "-bkmChis"
       manifestPlaceholders["appLabel"] = "BKM CHIS"
     }
+
+    create("mcct") {
+      dimension = "apps"
+      applicationIdSuffix = ".mcct"
+      versionNameSuffix = "-mcct"
+      manifestPlaceholders["appLabel"] = "MCCT+"
+    }
   }
 
   applicationVariants.all {
