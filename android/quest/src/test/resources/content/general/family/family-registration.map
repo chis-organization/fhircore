@@ -1,107 +1,170 @@
-map "https://fhir.labs.smartregister.org/fhir/StructureMap/5667cfbd-13c4-4111-b952-7cee58bdb9d5" = 'eCBIS Family Registration'
+map "https://fhir.labs.smartregister.org/fhir/StructureMap/d53f1f0b-32df-4fac-9f4c-69f758bf3006" = 'Recurring services encounter'
 
-uses "http://hl7.org/fhir/StructureDefinition/QuestionnaireReponse" as source
+uses "http://hl7.org/fhir/StructureDefinition/QuestionnaireResponse" as source
 uses "http://hl7.org/fhir/StructureDefinition/Bundle" as target
-uses "http://hl7.org/fhir/StructureDefinition/Group" as target
-uses "http://hl7.org/fhir/StructureDefinition/Encounter" as target
 
-group eCBISFamilyRegistration(source src : QuestionnaireResponse, target bundle: Bundle) {
-    src -> bundle.id = uuid() "rule_bundle_id";
-    src -> bundle.type = 'collection' "rule_bundle_type";
-    src -> bundle.entry as entry, entry.resource = create('Group') as group then
-        ExtractGroup(src, group), ExtractEncounter(src, bundle) "rule_bundle_entries";
-}
+group ExtractEncounter(source questionnaireResponse: QuestionnaireResponse, target bundle: Bundle) {
+    questionnaireResponse -> bundle.entry as entry, entry.resource = create("Encounter") as encounter then {
+        questionnaireResponse -> encounter.id = uuid(),
+            encounter.status = "finished",
+            encounter.class = c("http://terminology.hl7.org/CodeSystem/v3-ActCode", "HH", "home"),
+            encounter.priority = cc("http://terminology.hl7.org/ValueSet/v3-ActPriority", "EL", "Elective") as encounterPriority,
+            encounterPriority.text = "Elective" "r_en_static";
+        questionnaireResponse -> encounter.subject = evaluate(questionnaireResponse, $this.subject) "r_en_sub";
+        questionnaireResponse -> encounter.period = create("Period") as period then {
+            questionnaireResponse -> period.start = evaluate(questionnaireResponse, now()) "r_start";
+            questionnaireResponse -> period.end = evaluate(questionnaireResponse, now()) "r_end";
+        } "r_period";
 
-group ExtractGroup(source src : QuestionnaireResponse, target group : Group) {
-       src -> group.id = uuid() "rule_group_id_generation";
-       src -> group.name = evaluate(src, $this.item.where(linkId = '64712707-d6eb-4166-8d6e-06fa2b9fcf3e').answer.value) "rule_group_name";
-
-       src -> group.identifier = create('Identifier') as groupIdentifierHouseholdId then {
-         src -> groupIdentifierHouseholdId.value = evaluate(src, $this.item.where(linkId = 'ce49bde4-6ef9-423e-c747-efab250cd770').answer.value)
-         "rule_group_identifier_national_id_value";
-         src -> groupIdentifierHouseholdId.use = "official" "rule_group_identifier_national_id_use";
-         src -> groupIdentifierHouseholdId.period = create('Period') as period, period.start = evaluate(src, $this.authored) "rule_group_identifier_period";
-       } "rule_group_identifier_national_id";
-
-       src -> group.identifier = create('Identifier') as groupIdentifier then {
-          src -> groupIdentifier.value = uuid() "rule_group_identifier_value";
-          src -> groupIdentifier.use = "secondary" "rule_group_identifier_use";
-          src -> groupIdentifier.period = create('Period') as period, period.start = evaluate(src, $this.authored) "rule_group_identifier_period";
-       } "rule_group_identifier";
-
-       src -> group.active = true "r_grp_status_data";
-
-       src -> group.characteristic = create('Group_Characteristic') as includeFamily then {
-           src -> includeFamily.exclude = false "rule_exclude_group_false";
-       } "rule_group_char";
-
-
-
-       src -> group.characteristic = create('Group_Characteristic') as familyCharacteristic then {
-           src -> familyCharacteristic.code = create('CodeableConcept') as familyCharacteristicCode then{
-               src -> familyCharacteristicCode.coding = c("https://smartregister.org/", "active") as coding then {
-               src -> coding.display = 'Active' "r_cp_cod_disp_v";
-               } "r_grp_vcode";
-           } "rule_group_char_code";
-       } "rule_group_char";
-
-       src -> group.type = 'person' "r_grp_type_data";
-       src -> group.actual = true "r_grp_actual_data";
-       src -> group.code = create('CodeableConcept') as concept then ExtractFamilyCode(src, concept) "r_grp_code_data";
-
-       src.item as familyHome where(linkId='7d9dba4c-7407-4eb2-d791-2d1834b6afcc') -> group.characteristic = create ('Group_Characteristic') as groupCharacteristic then {
-            familyHome -> groupCharacteristic.code = create('CodeableConcept') as villageCode then{
-                src -> villageCode.coding = c("http://ona.io/codes", "hh_village") as coding then {
-                src -> coding.display = 'Household Village' "r_cp_cod_disp_v";
-                } "r_grp_vcode";
-                src -> villageCode.text = evaluate(src, $this.item.where(linkId = '7d9dba4c-7407-4eb2-d791-2d1834b6afcc').answer.value) "r_vcc_hh_village";
-            } "r_cp_cc_coding_v";
-            familyHome -> groupCharacteristic.value = create('CodeableConcept') as concept then {
-                familyHome -> concept.coding = c("http://ona.io/codes", "hh_village") as coding then {
-                src -> coding.display = 'Household Village' "r_cp_cod_disp_value";
-                } "r_grp_value_code";
-                familyHome -> concept.text = evaluate(src, $this.item.where(linkId = '7d9dba4c-7407-4eb2-d791-2d1834b6afcc').answer.value) "rule_value_codeable_concept_text";
-            } "rule_value_codeable_concept";
-            familyHome -> groupCharacteristic.exclude = false "r_cp_cc_exclude_v";
-       } "r_group_char_v";
-}
-
-group ExtractEncounter(source src : QuestionnaireResponse, target bundle: Bundle) {
-    src -> bundle.entry as entry, entry.resource = create('Encounter') as encounter then {
-        src -> encounter.id = uuid() "r_en_id";
-        src -> encounter.status = 'finished' "r_en_st";
-        src -> encounter.class = c("http://terminology.hl7.org/CodeSystem/v3-ActCode", "HH", "home health") "r_en_cls";
-        src -> encounter.type = create('CodeableConcept') as concept then {
-            src -> concept.coding = c("http://snomed.info/sct", "184048005") as coding then {
-                src -> coding.display = 'Consultation' "r_en_cod_disp";
-            } "r_en_cc_cod";
-            src -> concept.text = 'Consultation' "r_en_typ_text";
-        } "r_en_typ";
-        src -> encounter.priority = create('CodeableConcept') as concept then {
-            src -> concept.coding = c("http://terminology.hl7.org/ValueSet/v3-ActPriority", "EL") as coding then {
-                src -> coding.display = 'elective' "r_en_cod_disp";
-            } "r_en_cc_cod";
-            src -> concept.text = 'elective' "r_en_prio_text";
-        } "r_en_prio";
-    	src -> encounter.subject = evaluate(src, $this.subject) "r_en_sub";
-        // src -> encounter.participant = automatically set by code in questionnaire view model
-        src -> encounter.period = create('Period') as enPeriod then {
-            src -> enPeriod.start = evaluate(src, now()) "r_en_per_start";
-            src -> enPeriod.end = evaluate(src, now()) "r_en_per_end";
-        } "r_en_per";
-        src -> encounter.reasonCode = create('CodeableConcept') as concept then {
-            src -> concept.coding = c("http://smartregsiter.org/", "family_registration") as coding then {
-                src -> coding.display = 'eCBIS Family Registration' "r_en_rc_cod_disp";
-            } "r_en_rc_cod";
-            src -> concept.text = 'eCBIS Family Registration' "r_en_text";
+        questionnaireResponse -> encounter.type = create('CodeableConcept') as type then {
+            questionnaireResponse -> type.coding = create("Coding") as coding then {
+                questionnaireResponse -> coding.system = "http://snomed.info/sct", coding.display = 'Recurring Service', coding.code = '33879002' "r_en_code_coding";
+            } "r_en_reason_code";
+            questionnaireResponse -> type.text = "Recurring Service Event" "r_en_type_text";
         } "r_en_reason";
-        // serviceProvider = automatically added in code
-    } "r_en";
+
+        questionnaireResponse -> encounter.reasonCode = create('CodeableConcept') as reason then {
+            questionnaireResponse -> reason.coding = create("Coding") as coding then {
+                questionnaireResponse -> coding.system = "http://snomed.info/sct", coding.display = evaluate(questionnaireResponse, $this.item.where(linkId = 'task-name').answer.value), coding.code = evaluate(questionnaireResponse, $this.item.where(linkId = 'task-code').answer.value)  "r_en_code_coding";
+            } "r_en_reason_code";
+            questionnaireResponse -> reason.text = evaluate(questionnaireResponse, $this.item.where(linkId = 'task-name').answer.value) "r_en_reason_text";
+        } "r_en_reason";
+
+        questionnaireResponse -> encounter.participant = create("Encounter_Participant") as partComp then {
+            questionnaireResponse -> partComp.individual = create("Reference") as encounterOwner then {
+                questionnaireResponse -> encounterOwner.reference = evaluate(questionnaireResponse, "Practitioner/"+ $this.meta.tag.where($this.system = "https://smartregister.org/practitioner-tag-id").code) "r_enc_part_reference";
+            } "r_enc_part_individual";
+        } "r_enc_part_component";
+
+        questionnaireResponse then extractTaskOutput(questionnaireResponse, bundle, encounter) "rule_task_period_extraction";
+        questionnaireResponse then extractTask(questionnaireResponse, bundle) "rule_task_period_extraction";
+    } "r_encounter";
 }
 
-group ExtractFamilyCode(source src : Group, target concept: CodeableConcept) {
-    src -> concept.coding = c("https://www.snomed.org", "35359004") as coding then {
-        src -> coding.display = 'Family' "r_cp_cod_disp";
+group extractTaskOutput(source questionnaireResponse : QuestionnaireResponse, target bundle: Bundle, source encounter : Encounter) {
+    questionnaireResponse -> bundle.entry as entry, entry.resource = create('Task') as task then {
+        questionnaireResponse -> task.id = create('id') as id then {
+            questionnaireResponse -> id.value = evaluate(questionnaireResponse, $this.item.where(linkId = 'task-id').answer.value.toString()) "rule_task_id";
+        } "rule_update_task";
 
-    } "r_cp_cc_cod";
+        // Task Encounter Output one
+        questionnaireResponse -> task.output = create('Task_Output') as outputTask then {
+            questionnaireResponse -> outputTask.type = create("CodeableConcept") as concept then {
+                questionnaireResponse-> concept.coding = c("http://snomed.info/sct","41000179103") as coding then {
+                    questionnaireResponse -> coding.display = "Immunization record (record artifact)" "rule_coding_display";
+                } "rule_task_concept_coding";
+            } "rule_codeable_concept";
+            questionnaireResponse -> outputTask.value = reference(encounter) "rule_task_output_reference";
+        } "rule_task_output";
+    } "rule_task";
+}
+
+group extractTask(source questionnaireResponse : QuestionnaireResponse, target bundle: Bundle) {
+    // fill task into careplan contained and add reference in activity.outcome
+     questionnaireResponse -> bundle.entry as entry, entry.resource = create('Task') as task then {
+        questionnaireResponse -> task.id =  uuid(),
+            task.identifier = create('Identifier') as iden, iden.value = uuid(), iden.use = 'official',
+            task.status = 'requested',
+            task.intent = 'plan',
+            task.priority = 'routine',
+            task.for = evaluate(questionnaireResponse, $this.subject),
+            task.basedOn = create('Reference') as ref, ref.reference = evaluate(questionnaireResponse, $this.item.where(linkId = 'task-careplan').answer.value.toString()),
+            task.authoredOn = evaluate(questionnaireResponse, now()),
+            task.requester = create('Reference') as ref, ref.reference = evaluate(questionnaireResponse, "Practitioner/"+ $this.meta.tag.where($this.system = "https://smartregister.org/practitioner-tag-id").code),
+            task.owner = create('Reference') as ref, ref.reference = evaluate(questionnaireResponse, "Practitioner/"+ $this.meta.tag.where($this.system = "https://smartregister.org/practitioner-tag-id").code) "r_task_data";
+
+        questionnaireResponse -> task.executionPeriod = create('Period') as taskPeriod then {
+            questionnaireResponse -> taskPeriod.start = evaluate(questionnaireResponse, now()) "r_start";
+            questionnaireResponse -> taskPeriod.end = evaluate(questionnaireResponse, now()) "r_end";
+        } "rule_period";
+
+        // task groupIdentifier
+        questionnaireResponse -> task.groupIdentifier = create('Identifier') as groupIdentifier then {
+            questionnaireResponse -> groupIdentifier.value = evaluate(questionnaireResponse, $this.item.where(linkId = 'task-group-id').answer.value.toString()) "rule_group_identifierule_value";
+            questionnaireResponse -> groupIdentifier.use = "secondary" "rule_group_identifierule_use";
+        } "rule_group_identifier";
+
+        questionnaireResponse then extractPeriod(questionnaireResponse, task) "rule_task_period_extraction";
+        questionnaireResponse then updateVitaminTask(questionnaireResponse, task) "rule_task_period_extraction";
+        questionnaireResponse then addTaskToCarePlan(questionnaireResponse, task, bundle) "rule_task_period_extraction";
+    } "r_task";
+}
+
+
+group updateVitaminTask(source questionnaireResponse: QuestionnaireResponse, target task: Task) {
+    questionnaireResponse -> task.description = evaluate(questionnaireResponse, $this.item.where(linkId = 'task-description').answer.value.toString()) "rule_task_description";
+    questionnaireResponse -> task.code = create('CodeableConcept') as newCode then {
+        questionnaireResponse -> newCode.coding = create('Coding') as newCoding then {
+            questionnaireResponse -> newCoding.system = 'http://snomed.info/sct' "rule_task_system";
+            questionnaireResponse -> newCoding.code = evaluate(questionnaireResponse, $this.item.where(linkId = 'task-code').answer.value.toString()) "rule_task_code";
+            questionnaireResponse -> newCoding.display = "Administration of vaccine to produce active immunity (procedure)" "rule_task_display";
+        } "rule_task_coding";
+
+        questionnaireResponse -> newCode.text = "Administration of vaccine to produce active immunity (procedure)" "rule_task_codeable_concept_text";
+    } "rule_task_codeable_concept";
+
+    questionnaireResponse -> task.reasonCode = create('CodeableConcept') as reasonCode then {
+        questionnaireResponse -> reasonCode.coding = create('Coding') as reasonCoding then {
+            questionnaireResponse -> reasonCoding.system = 'http://snomed.info/sct' "rule_task_reason_system";
+            questionnaireResponse -> reasonCoding.code = evaluate(questionnaireResponse, $this.item.where(linkId = 'task-reason-code').answer.value.toString()) "rule_task_reason_code";
+            questionnaireResponse -> reasonCoding.display = evaluate(questionnaireResponse, $this.item.where(linkId = 'task-name').answer.value.toString()) "rule_task_reason_display";
+        } "rule_task_coding";
+
+        questionnaireResponse -> reasonCode.text = evaluate(questionnaireResponse, $this.item.where(linkId = 'task-description').answer.value.toString()) "rule_task_codeable_concept_text";
+    } "rule_task_codeable_concept";
+
+    questionnaireResponse -> task.executionPeriod = create('Period') as newPeriod then {
+        questionnaireResponse -> newPeriod.start = evaluate(questionnaireResponse, now()) "r_start";
+        questionnaireResponse -> newPeriod.end = evaluate(questionnaireResponse, (now().toString() + ' \'6 months\'').toQuantity()) "r_end";
+    } "rule_period";
+
+    // form to be filled
+    questionnaireResponse -> task.reasonReference = create('Reference') as ref, ref.reference = 'Questionnaire/96639cda-9273-48bc-ac94-a7d39817caac' "r_task_reason_ref";
+    questionnaireResponse -> evaluate(questionnaireResponse, "1795") as maxDays then extractTaskRestriction(questionnaireResponse, task, maxDays) "rule_task_restriction";
+}
+
+group extractTaskRestriction(source questionnaireResponse: QuestionnaireResponse, target task: Task, source restrictionEndDate: String) {
+    questionnaireResponse -> evaluate(task, $this.executionPeriod.start) as start then {
+        questionnaireResponse -> create("Task_Restriction") as taskRestriction then {
+            questionnaireResponse->taskRestriction.period = create("Period") as taskRestrictionPeriod then {
+                questionnaireResponse -> taskRestrictionPeriod.start = create('dateTime') as startDateTime,
+                    startDateTime.value = evaluate(start, $this.value.substring(0,10) + 'T00:00:00.00Z') "rule_period_start";
+
+                questionnaireResponse -> taskRestrictionPeriod.end = create('dateTime') as endDateTime,
+                    endDateTime.value = evaluate(start, (($this + (((restrictionEndDate).toString() + ' \'days\'')).toQuantity()).value.substring(0,10)) + 'T00:00:00.00Z') "rule_period_end";
+
+                questionnaireResponse -> task.restriction = taskRestriction "rule_restriction_period";
+            } "rule_task_restriction_period";
+        } "rule_task_restriction";
+    } "rule_task_execution_period";
+}
+
+group addTaskToCarePlan(source questionnaireResponse: QuestionnaireResponse, source task: Task, target bundle: Bundle) {
+    questionnaireResponse -> bundle.entry as entry, entry.resource = create('CarePlan') as carePlan then {
+        questionnaireResponse -> carePlan.id = create('id') as id then {
+            questionnaireResponse -> id.value = evaluate(questionnaireResponse, $this.item.where(linkId = 'task-careplan').answer.value.replaceMatches('/CarePlan/.*', '').toString()) "rule_careplan_id";
+        } "rule_update_careplan";
+        questionnaireResponse -> carePlan.activity = create('CarePlan_Activity') as activity then {
+            questionnaireResponse -> activity.detail = create('CarePlan_ActivityDetail') as detail then {
+                questionnaireResponse -> detail.kind = 'Task' "rule_task_kind";
+            } "rule_activity_detail";
+            questionnaireResponse -> activity.outcomeReference = create('Reference') as taskReference, evaluate(task, $this.id) as taskId then {
+                questionnaireResponse -> taskReference.reference = evaluate(questionnaireResponse, 'Task/' + taskId) "rule_task_reference";
+            } "rule_outcome_reference";
+        } "rule_activity";
+    } "rule_add_task";
+}
+
+group extractPeriod(source questionnaireResponse: QuestionnaireResponse, target task: Task) {
+    questionnaireResponse -> evaluate(task, $this.executionPeriod.start) as start, evaluate(task, $this.executionPeriod.end) as end then {
+        questionnaireResponse -> create('Period') as period then {
+            questionnaireResponse -> period.start = create('dateTime') as startDateTime,
+                startDateTime.value = evaluate(start, $this.value.substring(0,10) + 'T00:00:00.00Z') "rule_period_start";
+
+            questionnaireResponse -> period.end = create('dateTime') as endDateTime,
+                endDateTime.value = evaluate(end, $this.value.substring(0,10) + 'T00:00:00.00Z') "rule_period_end";
+
+            questionnaireResponse -> task.executionPeriod = period "rule_execution_period";
+        } "rule_period";
+    } "rule_task_execution_period";
 }

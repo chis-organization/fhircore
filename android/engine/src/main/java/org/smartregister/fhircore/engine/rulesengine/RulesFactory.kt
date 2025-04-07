@@ -700,7 +700,7 @@ constructor(
             Task.TaskStatus.FAILED -> ServiceStatus.FAILED.name
             Task.TaskStatus.REQUESTED -> ServiceStatus.UPCOMING.name
             Task.TaskStatus.READY -> ServiceStatus.DUE.name
-            Task.TaskStatus.CANCELLED -> ServiceStatus.EXPIRED.name
+            Task.TaskStatus.CANCELLED -> ServiceStatus.OVERDUE.name
             Task.TaskStatus.INPROGRESS -> ServiceStatus.IN_PROGRESS.name
             Task.TaskStatus.COMPLETED -> ServiceStatus.COMPLETED.name
             else -> ""
